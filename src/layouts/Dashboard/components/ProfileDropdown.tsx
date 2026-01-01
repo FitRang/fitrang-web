@@ -1,6 +1,6 @@
 import {
   LogOut,
-  Settings,
+  UserPen,
 } from "lucide-react"
 
 import {
@@ -12,8 +12,10 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import User from "@/assets/user.png";
+import { useRouter } from "@/routes/hooks/use-pathname";
 
 export default function DropdownMenuDemo() {
+  const router = useRouter()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -24,9 +26,12 @@ export default function DropdownMenuDemo() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
-          <DropdownMenuItem className="cursor-pointer">
-            <Settings />
-            <span>Settings</span>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => {router.push("/profile")}}
+            >
+            <UserPen />
+            <span>Profile</span>
           </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer">
           <LogOut />

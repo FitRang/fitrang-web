@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu } from "lucide-react";
+import { Bell, Menu } from "lucide-react";
 import Logo from "@/assets/logo.png";
-import NotficationDropdown from "./NotifiactionDropdown";
 import ProfileDropdown from "./ProfileDropdown";
 
 export default function NavBar() {
@@ -49,7 +48,9 @@ export default function NavBar() {
         </section>
 
         <section className="hidden md:flex items-center gap-12 ml-auto mr-10">
-          <NotficationDropdown/>
+          <Link to="/notifications" className="flex items-center gap-3">
+            <Bell className="cursor-pointer"/>
+          </Link>
           <ProfileDropdown/> 
         </section>
 
@@ -89,7 +90,9 @@ export default function NavBar() {
           </ul>
 
           <section className="flex items-center gap-4 pt-2">
-            <NotficationDropdown/>
+            <Link to="/notifications" className="flex items-center gap-3">
+              <Bell className="cursor-pointer"/>
+            </Link>
             <ProfileDropdown/>
           </section>
         </section>

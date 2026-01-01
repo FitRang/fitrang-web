@@ -9,6 +9,9 @@ export const CreateDossier = lazy(() => import("../pages/CreateDossier"));
 export const Page404 = lazy(() => import("../pages/404"));
 export const Dossier = lazy(() => import("../pages/Dossier"));
 export const ProfilePage = lazy(() => import("../pages/Profile"));
+export const CreateProfilePage = lazy(() => import("../pages/CreateProfile"));
+export const AuthPage = lazy(() => import("../pages/Auth"));
+export const NotificationsPage = lazy(() => import("../pages/Notification"));
 
 export function Router() {
   const loading = <Atom color="#ff2056" size="large" text="" textColor="" />;
@@ -27,8 +30,14 @@ export function Router() {
         { path: "search", element: <Search /> },
         { path: "create-dossier", element: <CreateDossier /> },
         { path: "profile", element: <ProfilePage /> },
-        { path: "Dossier", element: <Dossier /> },
+        { path: "create-profile", element: <CreateProfilePage /> },
+        { path: "dossier", element: <Dossier /> },
+        { path: "notifications", element: <NotificationsPage /> },
       ],
+    },
+    {
+      path: "auth",
+      element: <AuthPage/>
     },
     {
       path: "404",
