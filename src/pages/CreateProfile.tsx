@@ -11,12 +11,12 @@ export default function CreateProfile() {
   const [username, setUsername] = useState("");
   const [avatarPreview, setAvatarPreview] = useState("");
 
-  const handleAvatarChange = (e) => {
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setAvatarPreview(reader.result);
+        setAvatarPreview(reader.result as string);
       };
       reader.readAsDataURL(file);
     }
