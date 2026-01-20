@@ -2,10 +2,21 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Bell, Menu } from "lucide-react";
 import Logo from "@/assets/logo.png";
-import ProfileDropdown from "./ProfileDropdown";
+// import ProfileDropdown from "./ProfileDropdown";
+import { Button } from "@/components/ui/button";
+import { signUpAndGetToken } from "@/services/SignUp";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
+
+  const handleAuth = async () => {
+    try {
+      const token = await signUpAndGetToken();
+      console.log(token);
+    } catch (err) {
+      console.error("Auth failed", err);
+    }
+  };
 
   const navItems = [
     { label: "Home", to: "/" },
@@ -33,10 +44,9 @@ export default function NavBar() {
                 <NavLink
                   to={item.to}
                   className={({ isActive }) =>
-                    `px-4 py-2 border-4 ${
-                      isActive
-                        ? "border-black bg-rose-400"
-                        : "border-transparent hover:border-black"
+                    `px-4 py-2 border-4 ${isActive
+                      ? "border-black bg-rose-400"
+                      : "border-transparent hover:border-black"
                     } font-semibold`
                   }
                 >
@@ -49,9 +59,12 @@ export default function NavBar() {
 
         <section className="hidden md:flex items-center gap-12 ml-auto mr-10">
           <Link to="/notifications" className="flex items-center gap-3">
-            <Bell className="cursor-pointer"/>
+            <Bell className="cursor-pointer" />
           </Link>
-          <ProfileDropdown/> 
+          {/* <ProfileDropdown /> */}
+          <Button
+            onClick={handleAuth}
+          >LogIn/SignUp</Button>
         </section>
 
         <button
@@ -76,10 +89,9 @@ export default function NavBar() {
                   to={item.to}
                   onClick={() => setOpen(false)}
                   className={({ isActive }) =>
-                    `block px-4 py-2 border-4 ${
-                      isActive
-                        ? "border-black bg-rose-400"
-                        : "border-transparent hover:border-black"
+                    `block px-4 py-2 border-4 ${isActive
+                      ? "border-black bg-rose-400"
+                      : "border-transparent hover:border-black"
                     } font-semibold`
                   }
                 >
@@ -91,9 +103,12 @@ export default function NavBar() {
 
           <section className="flex items-center gap-4 pt-2">
             <Link to="/notifications" className="flex items-center gap-3">
-              <Bell className="cursor-pointer"/>
+              <Bell className="cursor-pointer" />
             </Link>
-            <ProfileDropdown/>
+            {/* <ProfileDropdown/> */}
+            <Button
+              onClick={handleAuth}
+            >LogIn/SignUp</Button>
           </section>
         </section>
       )}
