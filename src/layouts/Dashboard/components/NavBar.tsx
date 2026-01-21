@@ -4,18 +4,14 @@ import { Bell, Menu } from "lucide-react";
 import Logo from "@/assets/logo.png";
 // import ProfileDropdown from "./ProfileDropdown";
 import { Button } from "@/components/ui/button";
-import { signUpAndGetToken } from "@/services/SignUp";
+import { useRouter } from "@/routes/hooks/use-router";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   const handleAuth = async () => {
-    try {
-      const token = await signUpAndGetToken();
-      console.log(token);
-    } catch (err) {
-      console.error("Auth failed", err);
-    }
+    router.push("/auth")
   };
 
   const navItems = [

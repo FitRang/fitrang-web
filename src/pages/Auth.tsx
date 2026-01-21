@@ -45,7 +45,7 @@ export default function AuthPage() {
       setLoading(true)
 
       await new Promise((resolve) => setTimeout(resolve, 1500))
-      const token = await signUpAndGetToken({ email, password })
+      const token = await signUpAndGetToken(email, password)
       console.log("SIGNUP", { token })
     } catch (err) {
       console.error(err)
