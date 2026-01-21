@@ -12,22 +12,22 @@ import {
 export default function FirstPart() {
   return (
     <section className="w-full">
-      <Card className="w-full max-w-4xl mx-auto p-10">
+      <Card className="w-full max-w-4xl mx-auto p-4 sm:p-6 md:p-10">
         <article>
-          <header className="mb-10">
-            <h2 className="text-2xl font-semibold tracking-tight">
+          <header className="mb-6 sm:mb-10">
+            <h2 className="text-xl sm:text-2xl font-semibold tracking-tight">
               Personal Appearance
             </h2>
-            <p className="mt-2 text-muted-foreground">
+            <p className="mt-1 sm:mt-2 text-sm sm:text-base text-muted-foreground">
               Help us understand your features for better styling recommendations.
             </p>
           </header>
 
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <fieldset className="space-y-3">
-              <legend className="text-lg font-bold">Face Type</legend>
+          <form className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10">
+            <fieldset className="space-y-2 sm:space-y-3">
+              <legend className="text-base sm:text-lg font-bold">Face Type</legend>
               <Select>
-                <SelectTrigger className="w-full h-12">
+                <SelectTrigger className="w-full h-10 sm:h-12">
                   <SelectValue placeholder="Select your face type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -43,10 +43,10 @@ export default function FirstPart() {
               </Select>
             </fieldset>
 
-            <fieldset className="space-y-3">
-              <legend className="text-lg font-bold">Skin Tone</legend>
+            <fieldset className="space-y-2 sm:space-y-3">
+              <legend className="text-base sm:text-lg font-bold">Skin Tone</legend>
               <Select>
-                <SelectTrigger className="w-full h-12">
+                <SelectTrigger className="w-full h-10 sm:h-12">
                   <SelectValue placeholder="Select your skin tone" />
                 </SelectTrigger>
                 <SelectContent>
@@ -61,10 +61,10 @@ export default function FirstPart() {
               </Select>
             </fieldset>
 
-            <fieldset className="space-y-3">
-              <legend className="text-lg font-bold">Body Type</legend>
+            <fieldset className="space-y-2 sm:space-y-3">
+              <legend className="text-base sm:text-lg font-bold">Body Type</legend>
               <Select>
-                <SelectTrigger className="w-full h-12">
+                <SelectTrigger className="w-full h-10 sm:h-12">
                   <SelectValue placeholder="Select your body type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -73,19 +73,17 @@ export default function FirstPart() {
                     <SelectItem value="rectangle">Rectangle</SelectItem>
                     <SelectItem value="trapezoid">Trapezoid</SelectItem>
                     <SelectItem value="triangle">Triangle</SelectItem>
-                    <SelectItem value="inverted_triangle">
-                      Inverted Triangle
-                    </SelectItem>
+                    <SelectItem value="inverted_triangle">Inverted Triangle</SelectItem>
                     <SelectItem value="oval">Oval</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </fieldset>
 
-            <fieldset className="space-y-3">
-              <legend className="text-lg font-bold">Hair Type</legend>
+            <fieldset className="space-y-2 sm:space-y-3">
+              <legend className="text-base sm:text-lg font-bold">Hair Type</legend>
               <Select>
-                <SelectTrigger className="w-full h-12">
+                <SelectTrigger className="w-full h-10 sm:h-12">
                   <SelectValue placeholder="Select your hair type" />
                 </SelectTrigger>
                 <SelectContent>

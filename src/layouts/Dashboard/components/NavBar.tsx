@@ -22,7 +22,7 @@ export default function NavBar() {
 
   return (
     <header className="w-full dark:bg-black border-b-4 border-black">
-      <nav className="px-6 py-4 flex items-center justify-end" aria-label="Main navigation">
+      <nav className="px-6 py-4 flex items-center justify-between" aria-label="Main navigation">
 
         <section className="flex items-center gap-8">
           <Link to="/" className="flex items-center gap-3">
