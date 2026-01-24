@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Upload } from "lucide-react";
+import createProfile from "@/services/CreateProfile";
+import type { CreateProfileResponse } from "@/services/models";
 
 export default function CreateProfile() {
   const [fullName, setFullName] = useState("");
@@ -22,8 +24,22 @@ export default function CreateProfile() {
     }
   };
 
-  const handleSubmit = () => {
-    console.log({ fullName, username, avatar: avatarPreview });
+  const handleSubmit = async () => {
+
+    const res: CreateProfileResponse = await createProfile({ fullName, username });
+
+    if (res.errors?.length) {
+      alert(res.errors[0].message);
+      return;
+    }
+
+    const profile = res.data?.createProfile;
+
+    if (!profile) {
+      alert("Profile creation failed");
+      return;
+    }
+
     alert("Profile created successfully!");
   };
 

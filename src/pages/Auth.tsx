@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { signUpAndGetToken } from "@/services/SignUp"
+import { signUp } from "@/services/SignUp"
+import { signIn } from "@/services/SignIn"
 
 export default function AuthPage() {
   const [isSignup, setIsSignup] = useState(false)
@@ -24,10 +25,8 @@ export default function AuthPage() {
   const handleLogin = async () => {
     try {
       setLoading(true)
-
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-
-      console.log("LOGIN", { email, password })
+      const token = await signIn(email, password)
+      console.log("SIGNUP", { token })
     } catch (err) {
       console.error(err)
     } finally {
@@ -43,9 +42,7 @@ export default function AuthPage() {
 
     try {
       setLoading(true)
-
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      const token = await signUpAndGetToken(email, password)
+      const token = await signUp(email, password)
       console.log("SIGNUP", { token })
     } catch (err) {
       console.error(err)
