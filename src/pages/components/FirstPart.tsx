@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+import { Card } from "@/components/ui/card"
 import {
   Select,
   SelectContent,
@@ -7,9 +7,13 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/components/ui/select"
+import { useDossierStore } from "@/store/Dossier"
 
 export default function FirstPart() {
+  const dossier = useDossierStore((s) => s.dossier)
+  const updateDossier = useDossierStore((s) => s.updateDossier)
+
   return (
     <section className="w-full">
       <Card className="w-full max-w-4xl mx-auto p-4 sm:p-6 md:p-10">
@@ -26,18 +30,23 @@ export default function FirstPart() {
           <form className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10">
             <fieldset className="space-y-2 sm:space-y-3">
               <legend className="text-base sm:text-lg font-bold">Face Type</legend>
-              <Select>
+              <Select
+                value={dossier.faceType}
+                onValueChange={(value) =>
+                  updateDossier({ faceType: value })
+                }
+              >
                 <SelectTrigger className="w-full h-10 sm:h-12">
                   <SelectValue placeholder="Select your face type" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Face Types</SelectLabel>
-                    <SelectItem value="oval">Oval</SelectItem>
-                    <SelectItem value="round">Round</SelectItem>
-                    <SelectItem value="square">Square</SelectItem>
-                    <SelectItem value="heart">Heart</SelectItem>
-                    <SelectItem value="diamond">Diamond</SelectItem>
+                    <SelectItem value="Oval">Oval</SelectItem>
+                    <SelectItem value="Round">Round</SelectItem>
+                    <SelectItem value="Square">Square</SelectItem>
+                    <SelectItem value="Heart">Heart</SelectItem>
+                    <SelectItem value="Diamond">Diamond</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -45,7 +54,12 @@ export default function FirstPart() {
 
             <fieldset className="space-y-2 sm:space-y-3">
               <legend className="text-base sm:text-lg font-bold">Skin Tone</legend>
-              <Select>
+              <Select
+                value={dossier.skinTone}
+                onValueChange={(value) =>
+                  updateDossier({ skinTone: value })
+                }
+              >
                 <SelectTrigger className="w-full h-10 sm:h-12">
                   <SelectValue placeholder="Select your skin tone" />
                 </SelectTrigger>
@@ -63,18 +77,25 @@ export default function FirstPart() {
 
             <fieldset className="space-y-2 sm:space-y-3">
               <legend className="text-base sm:text-lg font-bold">Body Type</legend>
-              <Select>
+              <Select
+                value={dossier.bodyType}
+                onValueChange={(value) =>
+                  updateDossier({ bodyType: value })
+                }
+              >
                 <SelectTrigger className="w-full h-10 sm:h-12">
                   <SelectValue placeholder="Select your body type" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Body Types</SelectLabel>
-                    <SelectItem value="rectangle">Rectangle</SelectItem>
-                    <SelectItem value="trapezoid">Trapezoid</SelectItem>
-                    <SelectItem value="triangle">Triangle</SelectItem>
-                    <SelectItem value="inverted_triangle">Inverted Triangle</SelectItem>
-                    <SelectItem value="oval">Oval</SelectItem>
+                    <SelectItem value="Rectangle">Rectangle</SelectItem>
+                    <SelectItem value="Trapezoid">Trapezoid</SelectItem>
+                    <SelectItem value="Triangle">Triangle</SelectItem>
+                    <SelectItem value="Inverted Triangle">
+                      Inverted Triangle
+                    </SelectItem>
+                    <SelectItem value="Oval">Oval</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -82,18 +103,23 @@ export default function FirstPart() {
 
             <fieldset className="space-y-2 sm:space-y-3">
               <legend className="text-base sm:text-lg font-bold">Hair Type</legend>
-              <Select>
+              <Select
+                value={dossier.hairType}
+                onValueChange={(value) =>
+                  updateDossier({ hairType: value })
+                }
+              >
                 <SelectTrigger className="w-full h-10 sm:h-12">
                   <SelectValue placeholder="Select your hair type" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Hair Types</SelectLabel>
-                    <SelectItem value="straight">Straight</SelectItem>
-                    <SelectItem value="wavy">Wavy</SelectItem>
-                    <SelectItem value="curly">Curly</SelectItem>
-                    <SelectItem value="coily">Coily</SelectItem>
-                    <SelectItem value="bald">Bald / Shaved</SelectItem>
+                    <SelectItem value="Straight">Straight</SelectItem>
+                    <SelectItem value="Wavy">Wavy</SelectItem>
+                    <SelectItem value="Curly">Curly</SelectItem>
+                    <SelectItem value="Coily">Coily</SelectItem>
+                    <SelectItem value="Bald">Bald / Shaved</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -102,5 +128,5 @@ export default function FirstPart() {
         </article>
       </Card>
     </section>
-  );
+  )
 }

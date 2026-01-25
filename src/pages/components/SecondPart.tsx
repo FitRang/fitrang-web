@@ -1,9 +1,41 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { useEffect, useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import createDossier from "@/services/CreateDossier"
+import { useDossierStore } from "@/store/Dossier"
 
 export default function SecondPart() {
+  const dossier = useDossierStore((s) => s.dossier)
+  const updateDossier = useDossierStore((s) => s.updateDossier)
+
+  const [preferredColorsInput, setPreferredColorsInput] = useState("")
+  const [dislikedColorsInput, setDislikedColorsInput] = useState("")
+
+  useEffect(() => {
+    setPreferredColorsInput(dossier.preferredColors?.join(", ") ?? "")
+    setDislikedColorsInput(dossier.dislikedColors?.join(", ") ?? "")
+  }, [dossier.preferredColors, dossier.dislikedColors])
+
+  const parseColors = (value: string) =>
+    value
+      .split(",")
+      .map((c) => c.trim().toLowerCase())
+      .filter(Boolean)
+
+  const handleSubmit = async () => {
+    try {
+      const res = await createDossier(dossier)
+      console.log(res.createDossier)
+      alert("Dossier created successfully!")
+    } catch (err: any) {
+      const message =
+        err.response?.errors?.[0]?.message ?? "Something went wrong"
+      alert(message)
+    }
+  }
+
   return (
     <section className="w-full">
       <Card className="w-full max-w-5xl mx-auto p-4 sm:p-6 md:p-8">
@@ -17,7 +49,10 @@ export default function SecondPart() {
             </p>
           </header>
 
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10">
+          <form
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-10"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <fieldset className="space-y-2 sm:space-y-3">
               <Label htmlFor="height" className="text-sm sm:text-base font-medium">
                 Height (cm)
@@ -27,6 +62,10 @@ export default function SecondPart() {
                 type="number"
                 placeholder="e.g. 175"
                 className="h-10 sm:h-12"
+                value={dossier.height ?? ""}
+                onChange={(e) =>
+                  updateDossier({ height: e.target.value })
+                }
               />
             </fieldset>
 
@@ -39,17 +78,33 @@ export default function SecondPart() {
                 type="number"
                 placeholder="e.g. 70"
                 className="h-10 sm:h-12"
+                value={dossier.weight ?? ""}
+                onChange={(e) =>
+                  updateDossier({ weight: e.target.value })
+                }
               />
             </fieldset>
 
             <fieldset className="space-y-2 sm:space-y-3">
-              <Label htmlFor="preferredColors" className="text-sm sm:text-base font-medium">
+              <Label
+                htmlFor="preferredColors"
+                className="text-sm sm:text-base font-medium"
+              >
                 Preferred Colors
               </Label>
               <Input
                 id="preferredColors"
                 placeholder="e.g. Black, Navy, Olive"
                 className="h-10 sm:h-12"
+                value={preferredColorsInput}
+                onChange={(e) =>
+                  setPreferredColorsInput(e.target.value)
+                }
+                onBlur={() =>
+                  updateDossier({
+                    preferredColors: parseColors(preferredColorsInput),
+                  })
+                }
               />
               <p className="text-xs sm:text-sm text-muted-foreground">
                 Colors you usually like to wear.
@@ -57,13 +112,25 @@ export default function SecondPart() {
             </fieldset>
 
             <fieldset className="space-y-2 sm:space-y-3">
-              <Label htmlFor="dislikedColors" className="text-sm sm:text-base font-medium">
+              <Label
+                htmlFor="dislikedColors"
+                className="text-sm sm:text-base font-medium"
+              >
                 Disliked Colors
               </Label>
               <Input
                 id="dislikedColors"
                 placeholder="e.g. Neon green, Yellow"
                 className="h-10 sm:h-12"
+                value={dislikedColorsInput}
+                onChange={(e) =>
+                  setDislikedColorsInput(e.target.value)
+                }
+                onBlur={() =>
+                  updateDossier({
+                    dislikedColors: parseColors(dislikedColorsInput),
+                  })
+                }
               />
               <p className="text-xs sm:text-sm text-muted-foreground">
                 Colors you prefer to avoid.
@@ -71,9 +138,14 @@ export default function SecondPart() {
             </fieldset>
           </form>
 
-          <Button className="mt-6 w-full sm:w-1/2 md:w-1/3">Submit</Button>
+          <Button
+            onClick={handleSubmit}
+            className="mt-6 w-full sm:w-1/2 md:w-1/3"
+          >
+            Submit
+          </Button>
         </article>
       </Card>
     </section>
-  );
+  )
 }

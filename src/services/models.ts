@@ -18,3 +18,39 @@ export interface CreateProfileData {
 export interface CreateProfileResponse {
   createProfile: MyProfile
 }
+
+export type Dossier = {
+  faceType?: string
+  skinTone?: string
+  bodyType?: string
+  hairType?: string
+  gender?: "male" | "female"
+  preferredColors: string[]
+  dislikedColors: string[]
+  height?: string
+  weight?: string
+}
+
+export type CreateDossierProps = {
+  faceType?: string
+  skinTone?: string
+  bodyType?: string
+  gender?: string
+  preferredColors?: string[]
+  dislikedColors?: string[]
+  height?: string
+  weight?: string
+}
+
+export type CreateDossierResponse = {
+  createDossier: {
+    id: string
+    faceType: string
+    skinTone: string
+    bodyType: string
+    gender: string
+    preferredColors: string[]
+    dislikedColors: string[]
+    createdAt: string
+  }
+}
