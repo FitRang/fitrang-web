@@ -5,7 +5,7 @@ import type {
 } from "@/services/models"
 
 const CREATE_DOSSIER_MUTATION = `
-  mutation CreateDossier($input: DossierCreateInput!) {
+  mutation CreateDossier($input: CreateDossier!) {
     createDossier(input: $input) {
       id
       faceType
@@ -22,7 +22,6 @@ const CREATE_DOSSIER_MUTATION = `
 export default async function createDossier(
   input: CreateDossierProps
 ): Promise<CreateDossierResponse> {
-  console.log(input)
   return graphqlClient.request<CreateDossierResponse>(
     CREATE_DOSSIER_MUTATION,
     {

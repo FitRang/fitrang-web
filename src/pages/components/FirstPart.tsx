@@ -102,24 +102,21 @@ export default function FirstPart() {
             </fieldset>
 
             <fieldset className="space-y-2 sm:space-y-3">
-              <legend className="text-base sm:text-lg font-bold">Hair Type</legend>
+              <legend className="text-base sm:text-lg font-bold">Gender</legend>
               <Select
-                value={dossier.hairType}
+                value={dossier.gender}
                 onValueChange={(value) =>
-                  updateDossier({ hairType: value })
+                  updateDossier({ gender: value })
                 }
               >
                 <SelectTrigger className="w-full h-10 sm:h-12">
-                  <SelectValue placeholder="Select your hair type" />
+                  <SelectValue placeholder="Select your gender" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Hair Types</SelectLabel>
-                    <SelectItem value="Straight">Straight</SelectItem>
-                    <SelectItem value="Wavy">Wavy</SelectItem>
-                    <SelectItem value="Curly">Curly</SelectItem>
-                    <SelectItem value="Coily">Coily</SelectItem>
-                    <SelectItem value="Bald">Bald / Shaved</SelectItem>
+                    <SelectLabel>Gender</SelectLabel>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

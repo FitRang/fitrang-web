@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import createDossier from "@/services/CreateDossier"
 import { useDossierStore } from "@/store/Dossier"
+import { Loader2 } from "lucide-react"
 
 export default function SecondPart() {
   const dossier = useDossierStore((s) => s.dossier)
@@ -12,6 +13,8 @@ export default function SecondPart() {
 
   const [preferredColorsInput, setPreferredColorsInput] = useState("")
   const [dislikedColorsInput, setDislikedColorsInput] = useState("")
+  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
     setPreferredColorsInput(dossier.preferredColors?.join(", ") ?? "")
@@ -25,14 +28,21 @@ export default function SecondPart() {
       .filter(Boolean)
 
   const handleSubmit = async () => {
+    setError(null)
+
     try {
+      setLoading(true)
       const res = await createDossier(dossier)
       console.log(res.createDossier)
-      alert("Dossier created successfully!")
     } catch (err: any) {
       const message =
-        err.response?.errors?.[0]?.message ?? "Something went wrong"
-      alert(message)
+        err?.response?.errors?.[0]?.message ??
+        err?.message ??
+        "Something went wrong"
+
+      setError(message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -137,12 +147,18 @@ export default function SecondPart() {
               </p>
             </fieldset>
           </form>
-
+          {error && (
+            <p className="mt-4 text-sm text-red-600">
+              {error}
+            </p>
+          )}
           <Button
             onClick={handleSubmit}
             className="mt-6 w-full sm:w-1/2 md:w-1/3"
           >
-            Submit
+            {
+              isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Submit"
+            }
           </Button>
         </article>
       </Card>

@@ -24,7 +24,7 @@ export type Dossier = {
   skinTone?: string
   bodyType?: string
   hairType?: string
-  gender?: "male" | "female"
+  gender?: string
   preferredColors: string[]
   dislikedColors: string[]
   height?: string
