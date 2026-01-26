@@ -4,13 +4,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Upload } from "lucide-react";
+import { Loader2, Upload } from "lucide-react";
 import createProfile from "@/services/CreateProfile";
 
 export default function CreateProfile() {
   const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [avatarPreview, setAvatarPreview] = useState("");
+  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setLoading] = useState(false)
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -24,17 +26,21 @@ export default function CreateProfile() {
   };
 
   const handleSubmit = async () => {
-    try {
-      const res = await createProfile({ fullName, username });
-      console.log(res.createProfile);
+    setError(null)
 
-      alert("Profile created successfully!");
+    try {
+      setLoading(true)
+      const res = await createProfile({ fullName, username })
+      console.log(res.createProfile)
     } catch (err: any) {
       const message =
-        err.response?.errors?.[0]?.message ??
-        "Something went wrong";
+        err?.response?.errors?.[0]?.message ??
+        err?.message ??
+        "Something went wrong"
 
-      alert(message);
+      setError(message)
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -115,13 +121,19 @@ export default function CreateProfile() {
                   Only lowercase letters, numbers, and underscores
                 </p>
               </div>
-
+              {error && (
+                <p className="text-sm text-red-600">
+                  {error}
+                </p>
+              )}
               <Button
                 onClick={handleSubmit}
                 disabled={!fullName || !username}
                 className="w-full"
               >
-                Create Profile
+                {
+                  isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Create Profile"
+                }
               </Button>
             </div>
           </CardContent>
