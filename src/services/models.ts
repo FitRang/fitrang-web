@@ -6,6 +6,15 @@ export interface MyProfile {
   createdAt: string
 }
 
+export interface Message {
+  id: string
+  sender: string
+  receiver: string
+  message: string
+  isRead: boolean
+  createdAt: string
+}
+
 export interface CreateProfileProps {
   fullName: string
   username: string
@@ -53,4 +62,16 @@ export type CreateDossierResponse = {
     dislikedColors: string[]
     createdAt: string
   }
+}
+
+export type GetMessagesResponse = {
+  getMessages: Message[]
+}
+
+export type GetUnreadMessagesResponse = {
+  getUnreadMessages: Message[]
+}
+
+export type MarkAsReadResponse = {
+  markMessageAsRead: Message
 }
