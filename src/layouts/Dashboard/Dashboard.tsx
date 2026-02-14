@@ -1,47 +1,42 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import NavBar from "./components/NavBar";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import { useNotificationStore } from "@/store/UnreadMessageCount";
+import { initNotificationWS } from "./NotificationConnection";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
-interface Notification {
-  id: string;
-  title: string;
-  description?: string;
-}
-
 export function DashboardLayout({ children }: DashboardLayoutProps) {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setNotifications((prev) => [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          title: "New notification",
-          description: "This is a test notification",
-        },
-      ]);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const notifications = useNotificationStore(
+    (state) => state.notifications
+  );
 
   useEffect(() => {
     if (!notifications.length) return;
 
-    toast("Event has been created", {
-      description: "Sunday, December 03, 2023 at 9:00 AM",
-      action: {
-        label: "Undo",
-        onClick: () => console.log("Undo"),
-      },
-    })
+    const latest = notifications[0];
+
+    toast(
+      `${latest.sender.username}`,
+      {
+        description: (
+          <span className="text-black">
+            {latest.message}
+          </span>
+        ),
+      }
+    );
+
   }, [notifications]);
+
+  useEffect(() => {
+    const ws = initNotificationWS();
+    return () => ws.close();
+  }, []);
 
   return (
     <>

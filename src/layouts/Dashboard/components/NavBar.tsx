@@ -57,7 +57,6 @@ export default function NavBar() {
           <Link to="/notifications" className="flex items-center gap-3">
             <Bell className="cursor-pointer" />
           </Link>
-          {/* <ProfileDropdown /> */}
           <Button
             onClick={handleAuth}
           >LogIn/SignUp</Button>
@@ -101,7 +100,6 @@ export default function NavBar() {
             <Link to="/notifications" className="flex items-center gap-3">
               <Bell className="cursor-pointer" />
             </Link>
-            {/* <ProfileDropdown/> */}
             <Button
               onClick={handleAuth}
             >LogIn/SignUp</Button>
