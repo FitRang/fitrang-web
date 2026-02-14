@@ -35,7 +35,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
   useEffect(() => {
     const ws = initNotificationWS();
-    return () => ws.close();
+    return () => ws.disconnect();
   }, []);
 
   return (
