@@ -47,7 +47,7 @@ export default function Homepage() {
             Personalized Matches
           </CardTitle>
           <CardDescription>
-            Get recommendations based on fit, proportions, and preferences —
+            Get recommendations based on fit, proportions, and preferences
             not generic trends.
           </CardDescription>
         </Card>

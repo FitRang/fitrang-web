@@ -4,12 +4,16 @@ import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import { useNotificationStore } from "@/store/UnreadMessageCount";
 import { initNotificationWS } from "./NotificationConnection";
+import { useUserStore } from "@/store/UserStore";
+import { getMyInitialData } from "@/services/GetInitialData";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
 }
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
+  const isLoaded = useUserStore((state) => state.isLoaded);
+  const unreadCount = useUserStore((state) => state.count);
 
   const notifications = useNotificationStore(
     (state) => state.notifications
@@ -19,7 +23,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     if (!notifications.length) return;
 
     const latest = notifications[0];
-
+    useUserStore.getState().setCount(unreadCount + 1);
     toast(
       `${latest.sender.username}`,
       {
@@ -36,6 +40,20 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   useEffect(() => {
     const ws = initNotificationWS();
     return () => ws.disconnect();
+  }, []);
+
+  useEffect(() => {
+    async function loadUser() {
+      if (isLoaded) return;
+      const data = await getMyInitialData();
+
+      useUserStore.getState().setMyProfile(data.getMyProfile);
+      useUserStore.getState().setMyDossier(data.getMyDossier);
+      useUserStore.getState().setMessages(data.getMessages);
+      useUserStore.getState().setCount(data.getMessages.length);
+    }
+
+    loadUser();
   }, []);
 
   return (

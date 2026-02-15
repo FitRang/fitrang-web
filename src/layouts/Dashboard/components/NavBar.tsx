@@ -5,10 +5,13 @@ import Logo from "@/assets/logo.png";
 // import ProfileDropdown from "./ProfileDropdown";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/routes/hooks/use-router";
+import { useUserStore } from "@/store/UserStore";
+
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const unreadCount = useUserStore((state) => state.count);
 
   const handleAuth = async () => {
     router.push("/auth")
@@ -54,8 +57,34 @@ export default function NavBar() {
         </section>
 
         <section className="hidden md:flex items-center gap-12 ml-auto mr-10">
-          <Link to="/notifications" className="flex items-center gap-3">
+          <Link
+            to="/notifications"
+            className="relative flex items-center justify-center"
+          >
             <Bell className="cursor-pointer" />
+
+            {unreadCount > 0 && (
+              <span
+                className="
+                  absolute
+                  -top-2
+                  -right-2
+                  bg-red-500
+                  text-white
+                  text-xs
+                  font-bold
+                  min-w-[18px]
+                  h-[18px]
+                  flex
+                  items-center
+                  justify-center
+                  rounded-full
+                  px-1
+                "
+              >
+                {unreadCount}
+              </span>
+            )}
           </Link>
           <Button
             onClick={handleAuth}
@@ -97,8 +126,34 @@ export default function NavBar() {
           </ul>
 
           <section className="flex items-center gap-4 pt-2">
-            <Link to="/notifications" className="flex items-center gap-3">
+            <Link
+              to="/notifications"
+              className="relative flex items-center justify-center"
+            >
               <Bell className="cursor-pointer" />
+
+              {unreadCount > 0 && (
+                <span
+                  className="
+                  absolute
+                  -top-2
+                  -right-2
+                  bg-red-500
+                  text-white
+                  text-xs
+                  font-bold
+                  min-w-[18px]
+                  h-[18px]
+                  flex
+                  items-center
+                  justify-center
+                  rounded-full
+                  px-1
+                  "
+                >
+                  {unreadCount}
+                </span>
+              )}
             </Link>
             <Button
               onClick={handleAuth}

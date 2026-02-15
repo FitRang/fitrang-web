@@ -75,3 +75,9 @@ export type GetUnreadMessagesResponse = {
 export type MarkAsReadResponse = {
   markMessageAsRead: Message
 }
+
+export interface GetMyInitialDataResponse {
+  getMyProfile: MyProfile
+  getMyDossier: Dossier
+  getMessages: Message[]
+}
