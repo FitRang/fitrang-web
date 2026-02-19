@@ -1,4 +1,4 @@
-import graphqlClient from "./graphqlClient";
+import { gqlRequest } from "./gqlRequest";
 import type { GetMyInitialDataResponse } from "./models"
 
 const GET_MY_INITIAL_DATA = `
@@ -40,7 +40,7 @@ const GET_MY_INITIAL_DATA = `
 `;
 
 export async function getMyInitialData(): Promise<GetMyInitialDataResponse> {
-  return graphqlClient.request<GetMyInitialDataResponse>(
+  return gqlRequest<GetMyInitialDataResponse>(
     GET_MY_INITIAL_DATA
   );
 }

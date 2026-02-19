@@ -25,8 +25,7 @@ export default function AuthPage() {
   const handleLogin = async () => {
     try {
       setLoading(true)
-      const token = await signIn(email, password)
-      console.log("SIGNUP", { token })
+      await signIn(email, password)
     } catch (err) {
       console.error(err)
     } finally {

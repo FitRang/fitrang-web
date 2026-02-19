@@ -8,7 +8,7 @@ export function initNotificationWS() {
   if (sarusInstance) return sarusInstance;
 
   sarusInstance = new Sarus({
-    url: "ws://localhost:8000/ws/notifications",
+    url: "ws://127.0.0.1:8000/ws/",
 
     retryConnectionDelay: 1000,
 

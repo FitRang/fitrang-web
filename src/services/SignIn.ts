@@ -10,12 +10,12 @@ export async function signIn(email: string, password: string) {
   const user = cred.user;
 
   if (!user.emailVerified) {
-    // Optional: resend verification email
-    // await sendEmailVerification(user);
-
     throw new Error("Please verify your email before logging in");
   }
 
-  const token = await user.getIdToken(true);
+  const token = await user.getIdToken();
+
+  localStorage.setItem("id_token", token);
+
   return token;
 }

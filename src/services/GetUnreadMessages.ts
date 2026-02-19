@@ -1,4 +1,4 @@
-import graphqlClient from "./graphqlClient"
+import { gqlRequest } from "./gqlRequest"
 import type { GetUnreadMessagesResponse } from "./models"
 
 const GET_UNREAD_MESSAGES_QUERY = `
@@ -14,7 +14,7 @@ const GET_UNREAD_MESSAGES_QUERY = `
 }
 `
 export default async function getUnreadMessages(): Promise<GetUnreadMessagesResponse> {
-  return graphqlClient.request<GetUnreadMessagesResponse>(
+  return gqlRequest<GetUnreadMessagesResponse>(
     GET_UNREAD_MESSAGES_QUERY,
   )
 }

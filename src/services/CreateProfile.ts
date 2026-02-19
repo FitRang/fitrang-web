@@ -1,4 +1,4 @@
-import graphqlClient from "./graphqlClient";
+import { gqlRequest } from "./gqlRequest";
 import type {
   CreateProfileProps,
   CreateProfileResponse,
@@ -19,7 +19,7 @@ const CREATE_PROFILE_MUTATION = `
 export default async function createProfile(
   { fullName, username }: CreateProfileProps
 ): Promise<CreateProfileResponse> {
-  return graphqlClient.request<CreateProfileResponse>(
+  return gqlRequest<CreateProfileResponse>(
     CREATE_PROFILE_MUTATION,
     {
       input: {

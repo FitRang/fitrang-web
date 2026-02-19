@@ -1,4 +1,4 @@
-import graphqlClient from "./graphqlClient"
+import { gqlRequest } from "./gqlRequest"
 import type {
   CreateDossierProps,
   CreateDossierResponse,
@@ -22,7 +22,7 @@ const CREATE_DOSSIER_MUTATION = `
 export default async function createDossier(
   input: CreateDossierProps
 ): Promise<CreateDossierResponse> {
-  return graphqlClient.request<CreateDossierResponse>(
+  return gqlRequest<CreateDossierResponse>(
     CREATE_DOSSIER_MUTATION,
     {
       input,

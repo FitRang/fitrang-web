@@ -1,4 +1,4 @@
-import graphqlClient from "./graphqlClient"
+import { gqlRequest } from "./gqlRequest"
 import type { MarkAsReadResponse } from "./models"
 
 const MARK_AS_READ_QUERY = `
@@ -14,7 +14,7 @@ const MARK_AS_READ_QUERY = `
 }
 `
 export default async function markAsRead(ID: string): Promise<MarkAsReadResponse> {
-  return graphqlClient.request<MarkAsReadResponse>(
+  return gqlRequest<MarkAsReadResponse>(
     MARK_AS_READ_QUERY,
     {
       input: ID,
