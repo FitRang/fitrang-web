@@ -13,10 +13,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { signUp } from "@/services/SignUp"
 import { signIn } from "@/services/SignIn"
+import { useRouter } from "@/routes/hooks"
 
 export default function AuthPage() {
   const [isSignup, setIsSignup] = useState(false)
   const [loading, setLoading] = useState(false)
+  const router = useRouter()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -26,6 +28,7 @@ export default function AuthPage() {
     try {
       setLoading(true)
       await signIn(email, password)
+      router.push("/")
     } catch (err) {
       console.error(err)
     } finally {
@@ -41,8 +44,8 @@ export default function AuthPage() {
 
     try {
       setLoading(true)
-      const token = await signUp(email, password)
-      console.log("SIGNUP", { token })
+      await signUp(email, password)
+      router.push("/auth")
     } catch (err) {
       console.error(err)
     } finally {

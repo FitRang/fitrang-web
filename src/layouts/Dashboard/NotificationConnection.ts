@@ -3,12 +3,12 @@ import { useNotificationStore } from "@/store/UnreadMessageCount";
 
 let sarusInstance: Sarus | null = null;
 
-export function initNotificationWS() {
+export function initNotificationWS(token: string) {
 
   if (sarusInstance) return sarusInstance;
 
   sarusInstance = new Sarus({
-    url: "ws://127.0.0.1:8000/ws/",
+    url: `ws://127.0.0.1:8000/ws?access_token=${token}`,
 
     retryConnectionDelay: 1000,
 
@@ -41,4 +41,3 @@ export function initNotificationWS() {
 
   return sarusInstance;
 }
-

@@ -6,6 +6,8 @@ import { useNotificationStore } from "@/store/UnreadMessageCount";
 import { initNotificationWS } from "./NotificationConnection";
 import { useUserStore } from "@/store/UserStore";
 import { getMyInitialData } from "@/services/GetInitialData";
+import { getAuth } from "firebase/auth";
+import { app } from "@/services/firebaseInit";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -38,8 +40,19 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   }, [notifications]);
 
   useEffect(() => {
-    const ws = initNotificationWS();
-    return () => ws.disconnect();
+    async function connectWS() {
+      const auth = getAuth(app);
+
+      if (!auth.currentUser) return;
+
+      const token = await auth.currentUser.getIdToken();
+
+      const ws = initNotificationWS(token);
+
+      return () => ws?.disconnect();
+    }
+
+    connectWS();
   }, []);
 
   useEffect(() => {
